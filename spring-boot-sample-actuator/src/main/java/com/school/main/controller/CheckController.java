@@ -23,6 +23,7 @@ public class CheckController {
 		System.out.println("==========controller entered============");
 		CheckDTO checkDTO = null;
 		checkDTO = checkInt.getCheck(id);
+		System.out.println("===========controller exited==============");
 		
 		return new ResponseEntity<CheckDTO>(checkDTO, HttpStatus.OK);
 	}
