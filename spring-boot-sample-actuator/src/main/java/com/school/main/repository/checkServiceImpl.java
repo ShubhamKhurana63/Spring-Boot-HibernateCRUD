@@ -16,14 +16,17 @@ public class checkServiceImpl implements CheckService {
 	HibernateTransactionManager transactionManager;
 
 	public CheckEntity getCheck(CheckEntity checkEntity) {
-		CheckEntity checkEntity2;
-
 		SessionFactory sdf = transactionManager.getSessionFactory();
 		Session session = sdf.openSession();
-
 		session.beginTransaction();
-		 session.persist(checkEntity);
+		session.persist(checkEntity);
 		session.getTransaction().commit();
+		return checkEntity;
+	}
+	public CheckEntity getData(Integer id) {
+		SessionFactory sdf = transactionManager.getSessionFactory();
+		Session session = sdf.openSession();
+		CheckEntity checkEntity=(CheckEntity)session.get(CheckEntity.class,id);
 		return checkEntity;
 	}
 

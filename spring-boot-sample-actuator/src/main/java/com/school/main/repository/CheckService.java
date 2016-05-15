@@ -5,4 +5,8 @@ import com.school.main.enity.CheckEntity;
 public interface CheckService {
 
 	public CheckEntity getCheck(CheckEntity checkEntity);
+	
+	public CheckEntity getData(Integer id);
+	
+	
 }
