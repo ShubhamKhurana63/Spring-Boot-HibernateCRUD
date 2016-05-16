@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.stereotype.Repository;
 
+import com.school.main.Exception.ConnectionNotFoundException;
 import com.school.main.enity.CheckEntity;
 
 @Repository
@@ -15,12 +16,20 @@ public class checkServiceImpl implements CheckService {
 	@Resource
 	HibernateTransactionManager transactionManager;
 
-	public CheckEntity getCheck(CheckEntity checkEntity) {
+	public CheckEntity getCheck(CheckEntity checkEntity) throws ConnectionNotFoundException {
 		SessionFactory sdf = transactionManager.getSessionFactory();
-		Session session = sdf.openSession();
-		session.beginTransaction();
-		session.persist(checkEntity);
-		session.getTransaction().commit();
+		
+		if(sdf!=null)
+		{
+			Session session = sdf.openSession();
+			session.beginTransaction();
+			session.persist(checkEntity);
+			session.getTransaction().commit();
+		}
+		else
+		{
+			throw new ConnectionNotFoundException("Connection not found");
+		}
 		return checkEntity;
 	}
 	public CheckEntity getData(Integer id) {
