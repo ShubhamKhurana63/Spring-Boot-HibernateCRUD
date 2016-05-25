@@ -8,6 +8,14 @@
 		<version>1.3.5.RELEASE</version>
 	</parent>
 	<artifactId>spring-boot-sample-actuator</artifactId>
+	<properties>
+		<org.aspectj_version>1.6.11</org.aspectj_version>
+		<org.slf4j_verison>1.7.2</org.slf4j_verison>
+	</properties>
+
+
+
+
 
 	<dependencies>
 		<dependency>
@@ -44,6 +52,32 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
+		</dependency>
+
+		
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${org.aspectj_version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${org.aspectj_version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+			<version>1.3</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j_verison}</version>
 		</dependency>
 	</dependencies>
 	<build>

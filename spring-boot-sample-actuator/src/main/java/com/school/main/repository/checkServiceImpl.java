@@ -18,7 +18,6 @@ public class checkServiceImpl implements CheckService {
 
 	public CheckEntity getCheck(CheckEntity checkEntity) throws ConnectionNotFoundException {
 		SessionFactory sdf = transactionManager.getSessionFactory();
-		
 		if(sdf!=null)
 		{
 			Session session = sdf.openSession();
