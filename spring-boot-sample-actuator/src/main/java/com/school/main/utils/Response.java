@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 
 public class Response<T> implements Serializable {
 	/**
-	 * 
+	 *good 
 	 */
 	private static final long serialVersionUID = 1L;
 	
