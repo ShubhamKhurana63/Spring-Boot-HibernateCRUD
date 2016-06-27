@@ -46,4 +46,15 @@ public class CheckManager implements CheckInt {
 		return checkDTO;
 	}
 
+	@Override
+	public CheckDTO saveFORPUT(CheckDTO checkDTO) {
+		CheckDTO checkDTO2 = null;
+		CheckEntity checkEntity = null;
+		checkEntity = MappingUtil.mapDTOtoEntity(checkDTO);
+		checkEntity = checkService.putForCRUD(checkEntity);
+		if (checkEntity != null) {
+			checkDTO2 = MappingEntitytoDTO.mapCheckEntitytoDTO(checkEntity);
+		}
+		return checkDTO2;
+	}
 }

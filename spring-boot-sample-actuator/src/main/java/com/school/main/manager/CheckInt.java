@@ -7,4 +7,8 @@ public interface CheckInt {
 	public CheckDTO getCheck(String name) throws ProjectException;
 
 	public CheckDTO getData(Integer id);
+	
+	public CheckDTO saveFORPUT(CheckDTO checkDTO);
+	
+	
 }

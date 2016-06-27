@@ -18,23 +18,32 @@ public class checkServiceImpl implements CheckService {
 
 	public CheckEntity getCheck(CheckEntity checkEntity) throws ConnectionNotFoundException {
 		SessionFactory sdf = transactionManager.getSessionFactory();
-		if(sdf!=null)
-		{
+		if (sdf != null) {
 			Session session = sdf.openSession();
 			session.beginTransaction();
 			session.persist(checkEntity);
 			session.getTransaction().commit();
-		}
-		else
-		{
+		} else {
 			throw new ConnectionNotFoundException("Connection not found");
 		}
 		return checkEntity;
 	}
+
 	public CheckEntity getData(Integer id) {
 		SessionFactory sdf = transactionManager.getSessionFactory();
 		Session session = sdf.openSession();
-		CheckEntity checkEntity=(CheckEntity)session.get(CheckEntity.class,id);
+		CheckEntity checkEntity = (CheckEntity) session.get(CheckEntity.class, id);
+		return checkEntity;
+	}
+
+	@Override
+	public CheckEntity putForCRUD(CheckEntity checkEntity) {
+
+		SessionFactory sdf = transactionManager.getSessionFactory();
+		Session sd = sdf.openSession();
+		sd.beginTransaction();
+		sd.persist(checkEntity);
+		sd.getTransaction().commit();
 		return checkEntity;
 	}
 

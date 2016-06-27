@@ -8,7 +8,7 @@
                             http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
 
-	<bean 
+	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
@@ -17,11 +17,11 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
-	
-	
-	
+
+
+
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="${data.driver}"></property>
 		<property name="url" value="${data.url}"></property>
@@ -39,7 +39,9 @@
 			</props>
 		</property>
 	</bean>
-<bean id="loggingAspect" class="com.school.main.utils.LoggingAspect"></bean>
+
+
+	<bean id="loggingAspect" class="com.school.main.utils.LoggingAspect"></bean>
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"></property>

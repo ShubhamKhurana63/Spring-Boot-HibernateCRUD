@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,28 +22,34 @@ public class CheckController {
 
 	@Value("${data}")
 	private String check;
-	
+
 	@Autowired
 	CheckInt checkInt;
-	@RequestMapping(value = "/check/{id}",method=RequestMethod.GET,produces = org.springframework.http.MediaType.APPLICATION_JSON_VALUE)
+
+	@RequestMapping(value = "/check/{id}", method = RequestMethod.GET, produces = org.springframework.http.MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<CheckDTO> check(@PathVariable String id) {
-		
+
 		System.out.println("==========controller entered============");
 		CheckDTO checkDTO = null;
 		try {
 			checkDTO = checkInt.getCheck(id);
 		} catch (ProjectException e) {
-		//return Response.failureResponse("internal server error");
+			// return Response.failureResponse("internal server error");
 		}
 		System.out.println("===========controller exited==============");
 		return new ResponseEntity<CheckDTO>(checkDTO, HttpStatus.OK);
 	}
-	@RequestMapping(value="/check",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<CheckDTO> getData(@RequestParam Integer id)
-	{
+
+	@RequestMapping(value = "/check", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<CheckDTO> getData(@RequestParam Integer id) {
 		System.out.println(check);
-		CheckDTO checkDTO=checkInt.getData(id);
-		return new ResponseEntity<CheckDTO>(checkDTO,HttpStatus.OK);
+		CheckDTO checkDTO = checkInt.getData(id);
+		return new ResponseEntity<CheckDTO>(checkDTO, HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<CheckDTO> checkPUTinCRUD(@RequestBody CheckDTO checkDTO) {
+		CheckDTO checkDTO2 = checkInt.saveFORPUT(checkDTO);
+		return new ResponseEntity<CheckDTO>(checkDTO2, HttpStatus.OK);
+	}
 }
