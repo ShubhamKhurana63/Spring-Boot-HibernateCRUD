@@ -8,7 +8,7 @@ public interface CheckInt {
 
 	public CheckDTO getData(Integer id);
 	
-	public CheckDTO saveFORPUT(CheckDTO checkDTO);
+	public CheckDTO saveForPut(String id,String name);
 	
 	
 }

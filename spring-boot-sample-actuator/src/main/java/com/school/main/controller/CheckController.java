@@ -47,9 +47,9 @@ public class CheckController {
 		return new ResponseEntity<CheckDTO>(checkDTO, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<CheckDTO> checkPUTinCRUD(@RequestBody CheckDTO checkDTO) {
-		CheckDTO checkDTO2 = checkInt.saveFORPUT(checkDTO);
+	@RequestMapping(value = "/check/{id}/update/{name}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<CheckDTO> checkPUTinCRUD(@PathVariable String id,@PathVariable String name) {
+		CheckDTO checkDTO2 = checkInt.saveForPut(id,name);
 		return new ResponseEntity<CheckDTO>(checkDTO2, HttpStatus.OK);
 	}
 }

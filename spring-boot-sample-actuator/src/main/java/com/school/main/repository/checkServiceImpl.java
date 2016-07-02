@@ -1,9 +1,13 @@
 package com.school.main.repository;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.stereotype.Repository;
 
@@ -37,14 +41,22 @@ public class checkServiceImpl implements CheckService {
 	}
 
 	@Override
-	public CheckEntity putForCRUD(CheckEntity checkEntity) {
-
+	public CheckEntity putForCRUD(String id, String name) {
 		SessionFactory sdf = transactionManager.getSessionFactory();
 		Session sd = sdf.openSession();
+		Criteria ctr = sd.createCriteria(CheckEntity.class);
+		ctr.add(Restrictions.eq("id", Integer.parseInt(id)));
+		List<CheckEntity> listOfObjects = ctr.list();
+		CheckEntity toBeUpdated = listOfObjects.get(0);
+		toBeUpdated.setName(name);
 		sd.beginTransaction();
-		sd.persist(checkEntity);
+		sd.save(toBeUpdated);
 		sd.getTransaction().commit();
-		return checkEntity;
+		// sd.beginTransaction();
+		// sd.persist(checkEntity);
+		// sd.getTransaction().commit();
+		// return checkEntity;
+		return toBeUpdated;
 	}
 
 }

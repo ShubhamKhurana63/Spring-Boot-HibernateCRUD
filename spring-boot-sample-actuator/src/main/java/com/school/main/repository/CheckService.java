@@ -9,7 +9,7 @@ public interface CheckService {
 	
 	public CheckEntity getData(Integer id);
 	
-	public CheckEntity putForCRUD(CheckEntity checkEntity);
+	public CheckEntity putForCRUD(String id,String name);
 	
 	
 }
