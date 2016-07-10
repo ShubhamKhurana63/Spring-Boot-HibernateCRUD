@@ -1,5 +1,7 @@
 package com.school.main.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -22,21 +24,24 @@ public class CheckController {
 
 	@Value("${data}")
 	private String check;
-
+	Logger logger = LoggerFactory.getLogger(CheckController.class);
 	@Autowired
 	CheckInt checkInt;
 
 	@RequestMapping(value = "/check/{id}", method = RequestMethod.GET, produces = org.springframework.http.MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<CheckDTO> check(@PathVariable String id) {
-
+ 
+		logger.info("entering the check method");
+		
 		System.out.println("==========controller entered============");
 		CheckDTO checkDTO = null;
 		try {
 			checkDTO = checkInt.getCheck(id);
 		} catch (ProjectException e) {
+			logger.error("project  exception block entered");
 			// return Response.failureResponse("internal server error");
 		}
-		System.out.println("===========controller exited==============");
+		logger.info("exiting from the check function");
 		return new ResponseEntity<CheckDTO>(checkDTO, HttpStatus.OK);
 	}
 
@@ -48,8 +53,8 @@ public class CheckController {
 	}
 
 	@RequestMapping(value = "/check/{id}/update/{name}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<CheckDTO> checkPUTinCRUD(@PathVariable String id,@PathVariable String name) {
-		CheckDTO checkDTO2 = checkInt.saveForPut(id,name);
+	public ResponseEntity<CheckDTO> checkPUTinCRUD(@PathVariable String id, @PathVariable String name) {
+		CheckDTO checkDTO2 = checkInt.saveForPut(id, name);
 		return new ResponseEntity<CheckDTO>(checkDTO2, HttpStatus.OK);
 	}
 }
