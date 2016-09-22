@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.school.main.Exception.ProjectException;
 import com.school.main.dto.CheckDTO;
+import com.school.main.dto.Quote;
 import com.school.main.manager.CheckInt;
 
 @Controller
@@ -24,15 +25,15 @@ public class CheckController {
 
 	@Value("${data}")
 	private String check;
-	Logger logger = LoggerFactory.getLogger(CheckController.class);
+	private static final Logger logger = LoggerFactory.getLogger(CheckController.class);
 	@Autowired
 	CheckInt checkInt;
 
 	@RequestMapping(value = "/check/{id}", method = RequestMethod.GET, produces = org.springframework.http.MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<CheckDTO> check(@PathVariable String id) {
- 
+
 		logger.info("entering the check method");
-		
+
 		System.out.println("==========controller entered============");
 		CheckDTO checkDTO = null;
 		try {
@@ -45,16 +46,29 @@ public class CheckController {
 		return new ResponseEntity<CheckDTO>(checkDTO, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/check", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/check", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<CheckDTO> getData(@RequestParam Integer id) {
 		System.out.println(check);
 		CheckDTO checkDTO = checkInt.getData(id);
-		return new ResponseEntity<CheckDTO>(checkDTO, HttpStatus.OK);
+		return new ResponseEntity<CheckDTO>(checkDTO,HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/check/{id}/update/{name}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<CheckDTO> checkPUTinCRUD(@PathVariable String id, @PathVariable String name) {
 		CheckDTO checkDTO2 = checkInt.saveForPut(id, name);
 		return new ResponseEntity<CheckDTO>(checkDTO2, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/quote", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Quote> getQuote() {
+		logger.debug("eneter teh getquote method");
+		Quote quote = checkInt.getQuote();
+		if (quote != null) {
+			return new ResponseEntity<Quote>(quote, HttpStatus.OK);
+		} else {
+
+		}
+		logger.debug("exiting from the getquote method");
+		return new ResponseEntity<Quote>(quote, HttpStatus.OK);
 	}
 }

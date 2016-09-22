@@ -6,10 +6,12 @@ import org.springframework.stereotype.Service;
 import com.school.main.Exception.ConnectionNotFoundException;
 import com.school.main.Exception.ProjectException;
 import com.school.main.dto.CheckDTO;
+import com.school.main.dto.Quote;
 import com.school.main.enity.CheckEntity;
 import com.school.main.repository.CheckService;
 import com.school.main.utils.MappingEntitytoDTO;
 import com.school.main.utils.MappingUtil;
+import com.school.main.utils.RestInvocation;
 
 @Service
 public class CheckManager implements CheckInt {
@@ -47,16 +49,27 @@ public class CheckManager implements CheckInt {
 	}
 
 	@Override
-	public CheckDTO saveForPut(String id,String name) {
+	public CheckDTO saveForPut(String id, String name) {
 		CheckDTO checkDTO2 = null;
 		CheckEntity checkEntity = null;
-		CheckEntity checkingObject=checkService.putForCRUD(id, name);
-		CheckDTO checkdto=MappingEntitytoDTO.mapCheckEntitytoDTO(checkingObject);
-		//checkEntity = MappingUtil.mapDTOtoEntity(checkDTO);
-		//checkEntity = checkService.putForCRUD(checkEntity);
-		/*if (checkEntity != null) {
-			checkDTO2 = MappingEntitytoDTO.mapCheckEntitytoDTO(checkEntity);
-		}*/
+		CheckEntity checkingObject = checkService.putForCRUD(id, name);
+		CheckDTO checkdto = MappingEntitytoDTO.mapCheckEntitytoDTO(checkingObject);
+		// checkEntity = MappingUtil.mapDTOtoEntity(checkDTO);
+		// checkEntity = checkService.putForCRUD(checkEntity);
+		/*
+		 * if (checkEntity != null) { checkDTO2 =
+		 * MappingEntitytoDTO.mapCheckEntitytoDTO(checkEntity); }
+		 */
 		return checkdto;
+	}
+
+	@Override
+	public Quote getQuote() {
+		Quote quote = null;
+		quote = RestInvocation.getRequest("http://gturnquist-quoters.cfapps.io/api/random");
+		if (quote != null) {
+			return quote;
+		}
+		return null;
 	}
 }

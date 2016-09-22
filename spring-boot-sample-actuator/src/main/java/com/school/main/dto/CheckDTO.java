@@ -1,6 +1,8 @@
 package com.school.main.dto;
 
-public class CheckDTO {
+import java.io.Serializable;
+
+public class CheckDTO implements Serializable {
 	private int id;
 	private String name;
 	private String address;

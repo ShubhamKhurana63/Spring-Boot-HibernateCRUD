@@ -11,7 +11,7 @@ public class TimeScheduler {
 
 	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
 
-	@Scheduled(fixedRate = 5000)
+	//@Scheduled(fixedRate = 500000000000)
 	public void timeScheduler() {
 		Date d = new Date();
 		System.out.println(simpleDateFormat.format(d));
